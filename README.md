@@ -1,210 +1,272 @@
-# EasyGo BD - Online Ticket Booking System
+# EasyGo BD - Online Bus Ticket Booking System
 
 ## 🎯 Project Overview
 
-EasyGo BD is a complete online bus ticket booking system with a modern frontend and a robust backend. Users can search for bus routes, book tickets by selecting seats, view booking history, and contact support.
+EasyGo BD is a complete online bus ticket booking system built with **Node.js**, **Express.js**, and **SQLite3**. Users can search for bus routes, book tickets by selecting seats, view booking history, and contact support. The system includes robust security features and date-based booking restrictions.
 
-## ✨ Features
+## ✨ Key Features
 
-### User Management
-- ✅ User registration with email verification
-- ✅ Secure login with JWT authentication
+### 🔐 User Management
+- ✅ User registration with email validation
+- ✅ Secure login with JWT authentication (24-hour expiry)
 - ✅ Password hashing with bcryptjs
-- ✅ Persistent user sessions
+- ✅ Persistent user sessions with localStorage
 
-### Ticket Booking
+### 🎫 Ticket Booking System
 - ✅ Search bus routes by origin and destination
+- ✅ **Date-restricted booking: Current date + next 2 days only**
 - ✅ Interactive seat selection with real-time pricing
 - ✅ Unique booking ID generation
-- ✅ Booking confirmation with details
-- ✅ Complete booking history
+- ✅ Booking confirmation with receipt details
+- ✅ Complete booking history tracking
+- ✅ Multiple payment status states
 
-### Database
+### 💾 Database & Storage
 - ✅ SQLite3 persistent storage
-- ✅ Automatic database initialization
-- ✅ Sample route data pre-loaded
-- ✅ Transaction-based seat booking
+- ✅ Automatic database initialization on startup
+- ✅ 150 pre-loaded sample routes (50 routes × 3 dates)
+- ✅ Transaction-based seat booking for consistency
 
-### API
-- ✅ RESTful API with Express.js
-- ✅ Complete CRUD operations
-- ✅ Error handling and validation
-- ✅ CORS enabled for cross-domain requests
+### 🔌 REST API
+- ✅ RESTful API with complete CRUD operations
+- ✅ Input validation and sanitization
+- ✅ Error handling and meaningful error messages
+- ✅ CORS enabled for secure cross-domain requests
+- ✅ Security headers (CSP, XSS Protection, etc.)
+
+### 💱 Localization
+- ✅ Currency: Bangladeshi Taka (Tk.)
+- ✅ All prices displayed in local currency
+- ✅ Localized UI and messaging
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation & Setup
+
 ```bash
+# 1. Install dependencies
 npm install
-```
 
-### 2. Start the Server
-```bash
+# 2. Start the server
 npm start
+# or
+node server.js
+
+# 3. Open in browser
+# Navigate to: http://localhost:5000
 ```
 
-Server will run on `http://localhost:5000`
-
-### 3. Open in Browser
-Navigate to: `http://localhost:5000`
+Server will run on `http://localhost:5000` with:
+- Frontend available at root path
+- API endpoints at `/api/*`
 
 ## 📁 Project Structure
 
 ```
-├── server.js              # Main Express server
-├── db.js                  # Database setup & initialization
-├── api.js                 # All API route handlers
-├── main-api.js           # Frontend API client functions
-├── package.json          # Dependencies
-├── .env                  # Environment config
+EasyGO-BD/
+├── server.js                 # Main HTTP server
+├── db.js                     # Database initialization & setup
+├── api.js                    # API route handlers
+├── admin-api.js              # Admin dashboard API
+├── main-api.js               # Frontend JavaScript API client
+├── package.json              # Dependencies & scripts
+├── .env                      # Environment variables
+├── .gitignore                # Git ignore rules
+│
 ├── data/
-│   └── easygo.db        # SQLite database
-├── HTML Pages/
-│   ├── index.html       # Landing page
-│   ├── login.html       # Login page
-│   ├── register.html    # Registration
-│   ├── homepage.html    # Search page
-│   ├── search.html      # Results
-│   ├── seat.html        # Seat selection
-│   ├── booking.html     # Confirmation
-│   ├── history.html     # Booking history
-│   └── contact.html     # Contact form
+│   └── easygo.db            # SQLite database file
+│
+├── HTML Pages (Frontend)
+│   ├── index.html           # Landing page
+│   ├── login-choice.html    # Login/Register choice
+│   ├── login.html           # User login
+│   ├── register.html        # User registration
+│   ├── homepage.html        # Main search page
+│   ├── search.html          # Search results
+│   ├── seat.html            # Seat selection & booking
+│   ├── booking.html         # Booking confirmation
+│   ├── payment.html         # Payment page
+│   ├── history.html         # Booking history
+│   ├── contact.html         # Contact/Support form
+│   ├── admin-login.html     # Admin login
+│   └── admin-dashboard.html # Admin panel
+│
 ├── styles/
-│   └── style.css        # Main stylesheet
-└── image/               # Images folder
+│   └── style.css            # Main stylesheet (responsive)
+│
+├── image/
+│   └── *.png                # Images & logos
+│
+└── Database/
+    └── create_db.py         # Python scripts for DB operations
 ```
 
 ## 🔌 API Endpoints
 
-### Authentication
+### Authentication Routes
 - `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
-- `POST /api/auth/verify` - Verify JWT token
+- `POST /api/auth/login` - User login (returns JWT token)
+- `POST /api/auth/verify` - Verify JWT token validity
 
-### Routes
-- `GET /api/routes/search?from=X&to=Y` - Search routes
-- `GET /api/routes` - Get all routes
+### Bus Routes
+- `GET /api/routes/search?from=X&to=Y` - Search routes (filtered by date: today ± 2 days)
+- `GET /api/routes` - Get all available routes
 
-### Seats
-- `GET /api/seats/:routeId` - Get available seats
-
-### Bookings
-- `POST /api/bookings/create` - Create booking
-- `GET /api/bookings/history/:userId` - Get user bookings
+### Seats & Booking
+- `GET /api/seats/:routeId` - Get seat availability for a route
+- `POST /api/bookings/create` - Create new booking
 - `GET /api/bookings/:bookingId` - Get booking details
+- `GET /api/bookings/history/:userId` - Get user's booking history
 
-### Contact
-- `POST /api/contact/submit` - Submit contact message
+### Support
+- `POST /api/contact/submit` - Submit contact/support message
+- `POST /api/admin/request` - Submit admin request
+- `GET /api/admin/requests` - Get all admin requests
 
 ## 🗄️ Database Schema
 
 ### users
-- id, name, email, password (hashed), created_at
+```sql
+id (PRIMARY KEY)
+name (TEXT)
+email (TEXT, UNIQUE)
+password (TEXT, hashed)
+gender (TEXT)
+created_at (DATETIME)
+```
 
 ### routes
-- id, from_city, to_city, departure_time, price, total_seats, bus_name, created_at
+```sql
+id (PRIMARY KEY)
+from_city (TEXT)
+to_city (TEXT)
+departure_date (TEXT, YYYY-MM-DD)  -- Date-based filtering
+departure_time (TEXT)
+price (REAL)
+total_seats (INTEGER, default 36)
+available_seats (INTEGER)
+bus_name (TEXT)
+created_at (DATETIME)
+```
 
 ### seats
-- id, route_id, seat_label, status (available/booked), booked_by
+```sql
+id (PRIMARY KEY)
+route_id (FOREIGN KEY)
+seat_label (TEXT, e.g., "A1")
+status (TEXT: "available"/"booked")
+booked_by (FOREIGN KEY to users.id)
+```
 
 ### bookings
-- id, booking_id, user_id, route_id, seats (JSON), total_price, booking_date, status
+```sql
+id (PRIMARY KEY)
+booking_id (TEXT, unique identifier)
+user_id (FOREIGN KEY)
+route_id (FOREIGN KEY)
+seats (JSON array of seat labels)
+total_price (REAL)
+booking_date (DATETIME)
+status (TEXT: "pending"/"confirmed"/"cancelled")
+```
 
 ### contact_messages
-- id, name, email, message, status, created_at
+```sql
+id (PRIMARY KEY)
+name (TEXT)
+email (TEXT)
+message (TEXT)
+status (TEXT: "new"/"responded")
+created_at (DATETIME)
+```
+
+### admin_requests
+```sql
+id (PRIMARY KEY)
+user_id (FOREIGN KEY)
+user_name (TEXT)
+user_email (TEXT)
+request (TEXT)
+route_id (FOREIGN KEY, optional)
+status (TEXT: "pending"/"reviewed"/"resolved")
+response (TEXT)
+created_at (DATETIME)
+```
 
 ## 📊 Sample Data
 
-On first startup, the system auto-creates:
-- 10 sample bus routes
-- 28 seats per route
-- Some pre-booked seats for demo
+On first startup, the system automatically creates:
+- **150 bus routes** (50 unique routes × 3 dates)
+- **3 dates**: Today, Tomorrow, Day after tomorrow
+- **36 seats per route** (9 rows × 4 columns: A1-I4)
+- **10+ cities** including Dhaka, Chittagong, Sylhet, Cox's Bazar, etc.
 
 ## 🔐 Security Features
 
-- Passwords hashed with bcryptjs
-- JWT tokens for authentication (24-hour expiry)
-- Input validation on frontend and backend
-- Transaction-based database operations
-- CORS enabled only for localhost
+- **Password Security**: bcryptjs hashing (salt rounds: 10)
+- **Authentication**: JWT tokens with 24-hour expiry
+- **Input Validation**: All inputs sanitized and validated
+- **Database Security**: Parameterized queries prevent SQL injection
+- **HTTP Security Headers**: CSP, X-Frame-Options, XSS Protection
+- **CORS**: Restricted to allowed origins
+- **Session Management**: Token-based, no session file exposure
 
 ## 🧪 Testing the System
 
-### 1. Register a New User
-- Go to Register page
-- Fill in credentials
-- Click Register
+### Admin Account (Pre-created)
+```
+Email: admin@gmail.com
+Password: 12345678
+```
 
-### 2. Login
-- Use registered email and password
-- Click Login
+### Test Booking Flow
+1. Register a new user
+2. Login with credentials
+3. Search routes (filtered for current + next 2 days)
+4. Select a route and book seats
+5. View booking history
 
-### 3. Search & Book
-- Select From and To cities
-- Choose a date
-- Click Search
-- Select a route
-- Choose seats
-- Confirm booking
+## 📝 Recent Updates
 
-### 4. View History
-- Click History in navbar
-- See all your bookings
+### Date-Based Booking Restrictions
+- ✅ Modified routes table to include `departure_date`
+- ✅ Updated searchRoutes API to filter by valid dates only
+- ✅ Database now contains 150 routes with date filtering
+- ✅ Users can only book for current date and next 2 days
 
-### 5. Contact Support
-- Go to Contact page
-- Fill form and submit
+### Currency Update
+- ✅ Changed all pricing from "Rs." to "Tk." (Bangladeshi Taka)
 
-## ⚙️ Configuration
+### Security Enhancements
+- ✅ Input sanitization across all API endpoints
+- ✅ Security headers implementation
+- ✅ CORS protection
 
-Edit `.env` to customize:
-```env
+## 🛠️ Development
+
+### Environment Variables (.env)
+```
 PORT=5000
-JWT_SECRET=your-secret-key
+JWT_SECRET=your-secret-key-change-in-production
 NODE_ENV=development
 ```
 
-## 🐛 Troubleshooting
+## 👨‍💻 Contributors
 
-**Port 5000 already in use:**
-```bash
-# Change PORT in .env
-PORT=3000
-```
-
-**npm install fails:**
-```bash
-npm cache clean --force
-npm install
-```
-
-**Database errors:**
-```bash
-# Remove database and restart
-rm data/easygo.db
-npm start
-```
-
-## 📈 Future Enhancements
-
-- Payment gateway integration
-- Email notifications
-- Admin dashboard
-- Real-time seat updates
-- Mobile app
-- Multi-language support
+- **Developer**: Samir
+- **Project**: EasyGO BD Bus Booking System
 
 ## 📞 Support
 
-For issues or questions, refer to SETUP_GUIDE.md for detailed documentation.
-
-## 📄 License
-
-Educational project - Free to use and modify.
+For issues, bugs, or feature requests, please create a GitHub issue or contact us through the app.
 
 ---
 
-**Version:** 1.0.0  
-**Backend:** Node.js/Express  
-**Database:** SQLite3  
-**Last Updated:** 2024
+**Last Updated**: April 2026  
+**Version**: 1.0.0  
+**Status**: Production Ready ✅
+# EasyGO-BD
