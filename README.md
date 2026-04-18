@@ -237,9 +237,7 @@ Password: 12345678
 - ✅ Updated searchRoutes API to filter by valid dates only
 - ✅ Database now contains 150 routes with date filtering
 - ✅ Users can only book for current date and next 2 days
-
-### Currency Update
-- ✅ Changed all pricing from "Rs." to "Tk." (Bangladeshi Taka)
+ Taka)
 
 ### Security Enhancements
 - ✅ Input sanitization across all API endpoints
