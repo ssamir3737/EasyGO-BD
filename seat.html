@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Select Seat</title>
+    <link rel="shortcut icon" href="image/EasyGo Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+
+            <li><a href="search.html"><img src="./image/book.png" alt="Book Ticket">Book Ticket</a></li>
+
+            <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="seat_section">
+        <h2 class="center">Select Your Seat</h2>
+        
+        <!-- User Request to Admin Section -->
+        <div class="admin-request-section">
+            <h3>📞 Special Request to Admin</h3>
+            <p>Have special seating requirements? Request from admin before selecting seats.</p>
+            
+            <form class="admin-request-form" id="adminRequestForm">
+                <div class="request-input-group">
+                    <textarea 
+                        id="userRequest" 
+                        name="request" 
+                        placeholder="E.g., I need window seat, accessibility accommodations, or group seating..." 
+                        rows="3" 
+                        required>
+                    </textarea>
+                </div>
+                
+                <div class="request-button-group">
+                    <button type="submit" class="btn-request">Send Request to Admin</button>
+                    <button type="reset" class="btn-cancel">Clear</button>
+                </div>
+                
+                <div id="requestStatus" class="request-status"></div>
+            </form>
+        </div>
+        
+        <!-- Legend for seat colors -->
+        <div class="seat-legend">
+            <h3>Seat Legend</h3>
+            <p>
+                <span class="legend-item">
+                    <span class="legend-seat available"></span>
+                    Available Seat
+                </span>
+                <span class="legend-item">
+                    <span class="legend-seat booked"></span>
+                    Booked Seat
+                </span>
+                <span class="legend-item">
+                    <span class="legend-seat selected" style="background: rgb(36, 86, 88); border: 1px solid rgb(36, 86, 88);"></span>
+                    Your Selection
+                </span>
+            </p>
+        </div>
+        
+        <div id="seats-container" class="seats">
+            <!-- Dynamically loaded from API -->
+        </div>
+
+        <p class="center">Selected Seats: <span id="seat-count">0</span></p>
+        <p class="center">Total Price: ৳<span id="total-price">0</span></p>
+
+        <div class="center">
+            <button class="btn-grad" onclick="goBooking()">Continue</button>
+            <button class="btn-grad" style="margin-left: 10px;" onclick="window.location.href='search.html'">Back</button>
+        </div>
+
+    </section>
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

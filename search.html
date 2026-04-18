@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Available Routes</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+         <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home" > Home</a></li>
+            
+            <li><a href="search.html"><img src="./image/book.png" alt="Book Ticket">Book Ticket</a></li>
+
+           <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+
+            <li><a href="history.html"><img src="./image/history.png" alt="">History</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <h1 class="center">Available Routes</h1>
+    <section class="route-section" id="search-results">
+        <!-- Dynamically loaded from API -->
+    </section>
+    <div style="margin: 20px; text-align: center;">
+        <a href="homepage.html" class="btn-grad" style="padding: 10px 20px; display: inline-block; text-decoration: none;">Back to Search</a>
+    </div>
+    <script src="./main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

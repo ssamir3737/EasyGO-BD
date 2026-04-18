@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EasyGo BD</title>
+    <link rel="shortcut icon" href="image/EasyGo Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+            <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+
+    <section class="login-section">
+        <h2>User Login</h2>
+
+        <!-- Add form tag for proper form submission -->
+        <form class="login-form" id="loginForm" onsubmit="loginUser(event)">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="btn-group">
+                <button class="btn-grad" type="submit">Login</button>
+                <button class="btn-grad" type="reset">Reset</button>
+            </div>
+        </form>
+
+        <p class="note">Don’t have an account? <a href="register.html"><img class="register" src="./image/registration.png" alt="">Register</a></p>
+    </section>
+
+    <script>
+        // Form submission logic - Now using API
+    </script>
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

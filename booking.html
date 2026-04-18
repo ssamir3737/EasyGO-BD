@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation & Receipt</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .receipt-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .receipt-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .receipt-header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .receipt-header p {
+            margin: 5px 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin: 10px 0;
+            animation: scale-up 0.6s ease-out;
+        }
+
+        @keyframes scale-up {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .receipt-content {
+            padding: 30px;
+        }
+
+        .booking-id {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .booking-id label {
+            font-size: 12px;
+            color: #666;
+            display: block;
+        }
+
+        .booking-id .id-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            font-family: monospace;
+            margin-top: 5px;
+        }
+
+        .receipt-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .receipt-section h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 8px;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .receipt-item label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .receipt-item span {
+            color: #333;
+        }
+
+        .receipt-separator {
+            border-top: 2px dashed #ddd;
+            margin: 15px 0;
+        }
+
+        .receipt-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-receipt {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-home {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-home:hover {
+            background: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .terms {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #856404;
+            margin-top: 15px;
+        }
+
+        @media print {
+            .navbar, .action-buttons, .receipt-header p:last-child {
+                display: none;
+            }
+            .receipt-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+            <li><a href="search.html"><img src="./image/book.png" alt="Book Ticket">Book Ticket</a></li>
+            <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+
+    <div class="receipt-container">
+        <div class="receipt-header">
+            <div class="success-icon">✓</div>
+            <h1>Booking Confirmed!</h1>
+            <p>Your ticket is ready</p>
+        </div>
+
+        <div class="receipt-content">
+            <!-- Booking ID -->
+            <div class="booking-id">
+                <label>Booking ID:</label>
+                <div class="id-value" id="booking-id-display">BKG-000000</div>
+            </div>
+
+            <!-- Route Details -->
+            <div class="receipt-section">
+                <h3>🚌 Route Information</h3>
+                <div class="receipt-item">
+                    <label>From:</label>
+                    <span id="from-city">-</span>
+                </div>
+                <div class="receipt-item">
+                    <label>To:</label>
+                    <span id="to-city">-</span>
+                </div>
+                <div class="receipt-item">
+                    <label>Departure Time:</label>
+                    <span id="departure-time">-</span>
+                </div>
+                <div class="receipt-item">
+                    <label>Bus Name:</label>
+                    <span id="bus-name">EasyGo Bus</span>
+                </div>
+            </div>
+
+            <!-- Seat Details -->
+            <div class="receipt-section">
+                <h3>🪑 Seat Details</h3>
+                <div class="receipt-item">
+                    <label>Selected Seats:</label>
+                    <span id="selected-seats">-</span>
+                </div>
+                <div class="receipt-item">
+                    <label>Total Seats:</label>
+                    <span id="total-seats">-</span>
+                </div>
+                <div class="receipt-item">
+                    <label>Price per Seat:</label>
+                    <span id="price-per-seat">Tk. -</span>
+                </div>
+            </div>
+
+            <!-- Payment Summary -->
+            <div class="receipt-section">
+                <h3>💳 Payment Summary</h3>
+                <div class="receipt-separator"></div>
+                <div class="receipt-total">
+                    <span>TOTAL AMOUNT:</span>
+                    <span id="total-amount">Tk. 0</span>
+                </div>
+                <div class="receipt-item">
+                    <label>Payment Status:</label>
+                    <span style="color: #4CAF50; font-weight: bold;">✓ Confirmed</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-receipt btn-download" onclick="printReceipt()">🖨️ Print Receipt</button>
+                <button class="btn-receipt btn-home" onclick="window.location.href='homepage.html'">🏠 Back Home</button>
+            </div>
+
+            <!-- Important Terms -->
+            <div class="terms">
+                <strong>⚠️ Important:</strong> Please carry your valid ID and arrive 30 minutes before departure. Booking confirmation has been sent to your registered email.
+            </div>
+
+            <!-- Footer -->
+            <div class="receipt-footer">
+                <p>Thank you for booking with EasyGo BD!</p>
+                <p>For support, contact: support@easygobd.com | Phone: +880-X-XXXX-XXXX</p>
+                <p id="receipt-timestamp"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function loadBookingConfirmation() {
+            const confirmationData = localStorage.getItem('booking_confirmation');
+            
+            if (!confirmationData) {
+                alert('No booking found');
+                window.location.href = 'homepage.html';
+                return;
+            }
+            
+            const booking = JSON.parse(confirmationData);
+            
+            // Display booking information
+            document.getElementById('booking-id-display').textContent = booking.booking_id || 'BKG-' + Date.now();
+            document.getElementById('from-city').textContent = booking.from_city;
+            document.getElementById('to-city').textContent = booking.to_city;
+            document.getElementById('departure-time').textContent = booking.departure_time;
+            document.getElementById('bus-name').textContent = booking.bus_name || 'EasyGo Bus';
+            document.getElementById('selected-seats').textContent = booking.seats.join(', ');
+            document.getElementById('total-seats').textContent = booking.seats.length;
+            document.getElementById('price-per-seat').textContent = 'Tk. ' + (booking.total_price / booking.seats.length);
+            document.getElementById('total-amount').textContent = 'Tk. ' + booking.total_price;
+            
+            // Display timestamp
+            const date = new Date();
+            document.getElementById('receipt-timestamp').textContent = 
+                'Generated on: ' + date.toLocaleString('en-BD');
+        }
+
+        function printReceipt() {
+            window.print();
+        }
+
+        // Load booking confirmation when page loads
+        window.addEventListener('load', loadBookingConfirmation);
+    </script>
+</body>
+
+</html>

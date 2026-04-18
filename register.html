@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | EasyGo BD</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+         <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home" > Home</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="register-section">
+         <h2>Create Account</h2>
+        <form class="register-form" onsubmit="registerUser(event)">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            
+            <select name="gender" required>
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+
+            <div class="btn-group">
+                <button class="btn-grad" type="submit">Register</button>
+                <button class="btn-grad" type="reset">Reset</button>
+            </div>
+        </form>
+
+        <p class="note">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+    </section>
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

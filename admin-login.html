@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - EasyGo BD</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .admin-login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6287bc 0%, #8c397e 100%);
+            padding: 20px;
+        }
+
+        .admin-login-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .admin-login-card h1 {
+            font-size: 28px;
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .admin-login-card p {
+            text-align: center;
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #802828 0%, #ff4757 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(100, 128, 166, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .admin-note {
+            background: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px;
+            border-radius: 4px;
+            color: #c62828;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+        }
+
+        @media (max-width: 500px) {
+            .admin-login-card {
+                padding: 20px;
+            }
+
+            .admin-login-card h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-badge">⚙️ ADMIN PANEL</div>
+            <h1>Admin Login</h1>
+            <p>Only authorized administrators can access this panel</p>
+
+            <form onsubmit="adminLogin(event)">
+                <div id="error-message" class="error-message"></div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="admin-email" placeholder="Enter admin email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                </div>
+
+                <button type="submit" class="login-btn">🔐 Login as Admin</button>
+            </form>
+
+            <div class="back-link">
+                <a href="login-choice.html">← Back to Login Choice</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="main-api.js"></script>
+    <script>
+        async function adminLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('error-message');
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store admin token and info
+                    localStorage.setItem('admin_token', data.token);
+                    localStorage.setItem('admin_user', JSON.stringify(data.admin));
+                    
+                    // Redirect to admin dashboard
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    errorDiv.textContent = data.message || 'Login failed';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Connection error: ' + error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

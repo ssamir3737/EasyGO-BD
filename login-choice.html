@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Choose Account Type</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .login-choice-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .choice-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .choice-card h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .choice-card p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .choice-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .choice-option {
+            padding: 30px;
+            border-radius: 12px;
+            border: 3px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .choice-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .choice-option.admin {
+            border-color: #ff6b6b;
+        }
+
+        .choice-option.admin:hover {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+        }
+
+        .choice-icon {
+            font-size: 48px;
+        }
+
+        .choice-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .choice-desc {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .choice-option.user .choice-title {
+            color: #667eea;
+        }
+
+        .choice-option.admin .choice-title {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 600px) {
+            .choice-options {
+                grid-template-columns: 1fr;
+            }
+
+            .choice-card {
+                padding: 20px;
+            }
+
+            .choice-card h1 {
+                font-size: 24px;
+            }
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .back-home:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-choice-container">
+        <div class="choice-card">
+            <h1>🚌 EasyGo BD</h1>
+            <p>Select your account type to proceed</p>
+
+            <div class="choice-options">
+                <!-- User Login -->
+                <a href="login.html" class="choice-option user">
+                    <div class="choice-icon">👤</div>
+                    <div class="choice-title">User Login</div>
+                    <div class="choice-desc">Book tickets and manage your bookings</div>
+                </a>
+
+                <!-- Admin Login -->
+                <a href="admin-login.html" class="choice-option admin">
+                    <div class="choice-icon">⚙️</div>
+                    <div class="choice-title">Admin Login</div>
+                    <div class="choice-desc">Manage buses and bookings</div>
+                </a>
+            </div>
+
+            <a href="index.html" class="back-home">← Back to Home</a>
+        </div>
+    </div>
+</body>
+
+</html>

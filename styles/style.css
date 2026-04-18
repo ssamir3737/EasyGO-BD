@@ -1,0 +1,664 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 20px;
+    background-color: rgb(130, 177, 215);
+}
+
+.btn-grad {
+    background: linear-gradient(to right, #085078 0%, #85D8CE 51%, #085078 100%)
+}
+.btn-grad {
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+}
+
+.btn-grad:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+/* Navbar related style */
+.navbar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #abcdc9;
+    border-radius: 30px;
+}
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(26, 23, 23);
+    font-size: 16px;
+}
+
+.nav-links li a img {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+    background: transparent;
+}
+
+.nav-links li a:hover {
+    background-color: rgb(100, 108, 114);
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+/* Bus animation related style */
+.login-intro {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.login-intro h1,
+.login-intro p {
+    position: relative;
+    z-index: 2;    
+    text-align: center;
+}
+
+.bus {
+    position: absolute;
+    bottom: 0;
+    left: -300px;
+    width: 250px;
+    animation: busMove 6s linear infinite;
+}
+@keyframes busMove {
+    0% {
+        left: -300px;
+        z-index: 1; 
+    }
+    40% {
+        left: 40%;
+        z-index: 0;  
+    }
+    100% {
+        left: 100%;
+        z-index: 0;
+    }
+}
+
+/* Card related style */
+.feature-section {
+    padding: 60px 20px;
+    background: #7094c5;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.feature-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #250707;
+}
+
+.feature-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.feature-card {
+    background: rgb(214, 214, 217);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(52, 42, 42, 0.1);
+    transition: 0.8s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(179, 115, 115, 0.15);
+}
+
+.feature-card img {
+    width: 75px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+    color: #094e8a;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: #2b2727;
+}
+.login-intro {
+    max-width: 700px;
+    margin: 60px auto 30px auto;
+    padding: 35px 25px;
+    text-align: center;
+    background: linear-gradient(135deg, #01182c, #4393d4);
+    color: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.login-intro h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.login-intro p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 2.95;
+}
+.search-box ,.a {
+    width: 300px;
+    margin: 60px auto;
+    padding: 25px;
+    background: #9c9898;
+    border-radius: 10px;
+    text-align: center;
+    background: #dadddf;
+}
+.seat.booked {
+    background-color: #8d65a1;
+    color: white;
+    cursor: not-allowed;
+}
+
+.search-box input,.a {
+    width: 100%;
+    padding: 10px;
+    margin: 8px auto;
+    background-color: #bed4d2;
+}
+
+.search-box button,
+.route-card button,
+.center button {
+    padding: 10px 15px;
+    color: black;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: #5e92ca;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.search-box button:hover,
+.route-card button:hover,
+.center button:hover {
+    background-color: #52a8cd;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.nav-links img ,.register{
+    height: 25px;
+    width: 25px;
+    background: transparent;
+}
+.route-card {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+    background-color: #e0dce0;
+    color: #1a1a1a;
+}
+
+.route-card h3,
+.route-card p {
+    color: #000;
+    margin: 8px 0;
+    font-weight: 500;
+}
+
+.route-card:hover {
+    background-color: #d0c8d0;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.route-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Admin Request Section Styling */
+.admin-request-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+.admin-request-section h3 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.admin-request-section > p {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.admin-request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.request-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-input-group textarea {
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+}
+
+.request-input-group textarea:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.request-button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-request {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #45b649 0%, #2d8659 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-request:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cancel {
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.request-status {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    min-height: 20px;
+}
+
+.request-status.success {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.request-status.error {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+.seats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.seat-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat {
+    border: 1px solid #2e2a2a;
+    padding: 10px;
+    background-color: #abcdc9;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 50px;
+    height: 50px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat:hover {
+    background-color: #93bbb8;
+    transition: 0.2s ease;
+}
+
+.seat.booked {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.aisle {
+    display: inline-block;
+    width: 30px;
+    height: 50px;
+}
+
+.seat.selected {
+    background: rgb(36, 86, 88);
+    color: rgb(231, 217, 217);
+    font-weight: bold;
+}
+
+/* Seat legend */
+.seat-legend {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.legend-item {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.legend-seat {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.legend-seat.available {
+    background-color: #abcdc9;
+    border: 1px solid #2e2a2a;
+}
+
+.legend-seat.booked {
+    background-color: #d9534f;
+    border: 1px solid #b52b28;
+}
+
+/* login related style */
+.login-section {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #dadddf;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.login-section h2 {
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    background-color: #bed4d2;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #b59f9f;
+}
+
+.note {
+    margin-top: 10px;
+}
+
+/* Login choice buttons */
+.login-choice-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+
+.choice-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #085078, #4aa3c8);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 250px;
+    border: none;
+    cursor: pointer;
+}
+
+.choice-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #06427d, #5bb5d8);
+}
+
+.choice-icon {
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+}
+
+.choice-text h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.choice-text p {
+    margin: 5px 0 0 0;
+    font-size: 13px;
+    opacity: 0.95;
+}
+
+.user-choice {
+    border-left: 5px solid #c272b6;
+}
+
+.admin-choice {
+    border-left: 5px solid #628bd1;
+}
+
+/* contact related style */
+.contact-section {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #a8bbce;
+    border-radius: 12px;
+}
+
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 12px;
+    color: rgb(28, 27, 27);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #b1d5b3;
+}
+
+/* Registration related style */
+.register-section {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #8ea0b1;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.register-section h2 {
+    margin-bottom: 20px;
+}
+
+.register-form input,
+.register-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.btn-group .btn-grad {
+    width: 48%;
+}
+
+/* Responsive design */
+@media screen and (max-width:576px) {
+    .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #98c7c1;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .hamburger {
+    display: block;
+  }
+  .login-intro {
+        height: 200px; 
+    }
+    .login-intro h1 {
+        font-size: 22px;
+    }
+    .login-intro p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    .bus {
+        width: 150px;
+        animation: busMoveMobile 6s linear infinite;
+    }
+    @keyframes busMoveMobile {
+        0% { 
+            left: -180px; z-index: 1; 
+        }
+        40% { 
+            left: 30%; z-index: 0; 
+        }
+        100% {
+             left: 100%; z-index: 0; 
+            }
+    }
+
+
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Gateway</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .payment-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .booking-summary {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .summary-item label {
+            font-weight: bold;
+        }
+
+        .payment-method {
+            margin: 20px 0;
+        }
+
+        .payment-method h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .payment-option.selected {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+            font-weight: bold;
+        }
+
+        .card-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .total-amount {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-pay {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-pay:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cancel {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .security-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+            <li><a href="search.html"><img src="./image/book.png" alt="Book Ticket">Book Ticket</a></li>
+            <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+
+    <div class="payment-container">
+        <h2>💳 Payment Gateway</h2>
+
+        <!-- Booking Summary -->
+        <div class="booking-summary">
+            <div class="summary-item">
+                <label>Route:</label>
+                <span id="summary-route">-</span>
+            </div>
+            <div class="summary-item">
+                <label>Seats:</label>
+                <span id="summary-seats">-</span>
+            </div>
+            <div class="summary-item">
+                <label>Price per Seat:</label>
+                <span id="summary-price">Tk. -</span>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.3); margin: 10px 0;">
+            <div class="summary-item" style="font-size: 18px;">
+                <label>Total Amount:</label>
+                <span id="summary-total" style="font-weight: bold;">Tk. 0</span>
+            </div>
+        </div>
+
+        <!-- Payment Method Selection -->
+        <div class="payment-method">
+            <h3>Select Payment Method:</h3>
+            <div class="payment-options">
+                <div class="payment-option selected" onclick="selectPaymentMethod('card', this)">
+                    💳 Card
+                </div>
+                <div class="payment-option" onclick="selectPaymentMethod('bkash', this)">
+                    📱 bKash
+                </div>
+                <div class="payment-option" onclick="selectPaymentMethod('nagad', this)">
+                    📱 Nagad
+                </div>
+                <div class="payment-option" onclick="selectPaymentMethod('rocket', this)">
+                    📱 Rocket
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Payment Form -->
+        <div id="card-payment" class="card-form">
+            <div class="form-group">
+                <label>Cardholder Name:</label>
+                <input type="text" id="card-name" placeholder="Enter full name">
+            </div>
+            <div class="form-group">
+                <label>Card Number:</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Expiry Date:</label>
+                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label>CVV:</label>
+                    <input type="text" id="card-cvv" placeholder="123" maxlength="4">
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Payment Form -->
+        <div id="mobile-payment" style="display:none;" class="card-form">
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="text" id="mobile-number" placeholder="01XXXXXXXXX">
+            </div>
+            <div class="form-group">
+                <label>Transaction PIN:</label>
+                <input type="password" id="mobile-pin" placeholder="Enter your PIN">
+            </div>
+        </div>
+
+        <!-- Total Amount Display -->
+        <div class="total-amount">
+            Amount: ৳<span id="total-display">0</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button class="btn-pay" onclick="processPayment()">✓ Confirm Payment</button>
+            <button class="btn-cancel" onclick="window.location.href='seat.html'">✕ Cancel</button>
+        </div>
+
+        <!-- Security Info -->
+        <div class="security-info">
+            🔒 Your payment is secure and encrypted. We never store card details.
+        </div>
+    </div>
+
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize payment page
+        function initializePayment() {
+            const route = JSON.parse(localStorage.getItem('selected_route'));
+            const seats = JSON.parse(localStorage.getItem('selected_seats')) || [];
+            
+            if (!route || seats.length === 0) {
+                alert('No booking details found');
+                window.location.href = 'seat.html';
+                return;
+            }
+
+            // Display booking summary
+            document.getElementById('summary-route').textContent = `${route.from_city} → ${route.to_city}`;
+            document.getElementById('summary-seats').textContent = seats.join(', ');
+            document.getElementById('summary-price').textContent = `Tk. ${route.price}`;
+            
+            const totalAmount = seats.length * route.price;
+            document.getElementById('summary-total').textContent = `Tk. ${totalAmount}`;
+            document.getElementById('total-display').textContent = totalAmount;
+        }
+
+        function selectPaymentMethod(method, element) {
+            // Remove previous selection
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+
+            // Show/hide payment forms
+            if (method === 'card') {
+                document.getElementById('card-payment').style.display = 'block';
+                document.getElementById('mobile-payment').style.display = 'none';
+            } else {
+                document.getElementById('card-payment').style.display = 'none';
+                document.getElementById('mobile-payment').style.display = 'block';
+            }
+        }
+
+        function processPayment() {
+            const selectedMethod = document.querySelector('.payment-option.selected').textContent;
+            
+            // Validate based on method
+            if (selectedMethod.includes('Card')) {
+                if (!document.getElementById('card-name').value || 
+                    !document.getElementById('card-number').value ||
+                    !document.getElementById('card-expiry').value ||
+                    !document.getElementById('card-cvv').value) {
+                    alert('Please fill in all card details');
+                    return;
+                }
+            } else {
+                if (!document.getElementById('mobile-number').value ||
+                    !document.getElementById('mobile-pin').value) {
+                    alert('Please fill in all mobile payment details');
+                    return;
+                }
+            }
+
+            // Show processing
+            alert('Processing payment... Please wait');
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Call the booking creation function
+                createBooking();
+            }, 1500);
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initializePayment);
+    </script>
+</body>
+
+</html>

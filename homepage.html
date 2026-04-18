@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket with us</title>
+    <link rel="shortcut icon" href="image/EasyGo Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+         <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+            
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="search-box">
+        <h2>Book Your Ticket Easily</h2>
+
+        <form onsubmit="searchRoutes(event)">
+            <input type="text" name="from" list="cityList" placeholder="From" required>
+            <input type="text" name="to" list="cityList" placeholder="To" required>
+
+            <datalist id="cityList">
+                <option value="Dhaka">
+                <option value="Barishal">
+                <option value="Chittagong">
+                <option value="Sylhet">
+                <option value="Rangpur">
+                <option value="Bogura">
+                <option value="Kuakata">
+                <option value="Dinajpur">
+                <option value="Gajipur">
+                <option value="Cumilla">
+            </datalist>
+
+            <button class="btn-grad" type="submit">Search</button>
+        </form>
+    </section>
+    <div style="margin: 20px; text-align: center;">
+        <a href="index.html" class="btn-grad" style="padding: 10px 20px; display: inline-block; text-decoration: none;">Logout</a>
+    </div>
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

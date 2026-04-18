@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - EasyGo BD</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            background: linear-gradient(180deg, #5a79a5 0%, #984b99 100%);
+            color: white;
+            padding: 30px 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            overflow-y: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .admin-menu {
+            list-style: none;
+        }
+
+        .admin-menu li {
+            margin: 8px 0;
+        }
+
+        .admin-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .admin-menu a:hover {
+            background: rgba(132, 130, 130, 0.25);
+            padding-left: 20px;
+            transform: translateX(5px);
+        }
+
+        .admin-menu a.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-left: 4px solid white;
+            padding-left: 17px;
+        }
+
+        .admin-logout {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .admin-logout a {
+            background: rgba(0, 0, 0, 0.2);
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .admin-logout a:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Main Content */
+        .admin-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            color: #333;
+            font-size: 33px;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-user-info {
+            text-align: right;
+        }
+
+        .admin-user-info .name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .admin-user-info .role {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #667eea;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .dashboard-card.orange {
+            border-left-color: #ff9800;
+        }
+
+        .dashboard-card.green {
+            border-left-color: #4caf50;
+        }
+
+        .dashboard-card.purple {
+            border-left-color: #9c27b0;
+        }
+
+        .dashboard-card-icon {
+            font-size: 37px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card-label {
+            font-size: 17px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-card-value {
+            font-size: 33px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Admin Sections */
+        .admin-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .admin-section h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 29px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Section */
+        .admin-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 44px;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #978686;
+            padding-bottom: 10px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 19px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 19px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #ff4757;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #c62828;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+
+        /* Table */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            color: white;
+            border-bottom: 2px solid #667eea;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .admin-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .admin-table tbody tr:hover {
+            background: #f8f9ff;
+            box-shadow: inset 0 0 5px rgba(102, 126, 234, 0.1);
+        }
+
+        .admin-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 20px;
+            }
+
+            .admin-content {
+                margin-left: 0;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Request Cards */
+        .request-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid #667eea;
+            position: relative;
+            overflow: visible;
+            min-width: auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .request-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .request-card:hover {
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .request-card.resolved {
+            border-left-color: #4caf50;
+        }
+
+        .request-card.resolved::before {
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .request-user {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .request-user-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a202c;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .request-user-email {
+            font-size: 13px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .request-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .request-badge.pending {
+            background: linear-gradient(135deg, #ffd89b 0%, #ffb347 100%);
+            color: #7c4700;
+        }
+
+        .request-badge.resolved {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #155724;
+        }
+
+        .request-message {
+            background: #f8f9fa;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            color: #2d3748;
+            line-height: 1.6;
+            font-size: 14px;
+            border-left: 4px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .request-answer-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .request-answer-label {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+        }
+
+        .request-answer-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+            color: #2d3748;
+            background: #fafbfc;
+            max-height: 120px;
+        }
+
+        .request-answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .request-answer-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .request-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-end;
+        }
+
+        .btn-resolve {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 11px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-resolve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-resolve:active {
+            transform: translateY(0px);
+        }
+
+        .request-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 14px;
+            position: relative;
+            z-index: 1;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .request-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Empty State */
+        #requests-container:empty::before {
+            content: 'No requests yet';
+            display: block;
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        /* Section Header */
+        .requests-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .requests-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        /* Landscape view optimization */
+        @media (min-height: 600px) {
+            #requests-container {
+                grid-template-columns: repeat(auto-fit, minmax(700px, 1fr)) !important;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            #requests-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (min-width: 1800px) {
+            #requests-container {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #requests-container {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">⚙️ ADMIN</div>
+            <ul class="admin-menu">
+                <li><a onclick="showSection('dashboard')" class="menu-link active">📊 Dashboard</a></li>
+                <li><a onclick="showSection('requests')" class="menu-link">📞 User Requests</a></li>
+                <li><a onclick="showSection('buses')" class="menu-link">🚌 Manage Buses</a></li>
+                <li><a onclick="showSection('bookings')" class="menu-link">📋 View Bookings</a></li>
+                <li><a onclick="showSection('users')" class="menu-link">👥 Manage Users</a></li>
+            </ul>
+            <div class="admin-logout">
+                <a onclick="adminLogout()">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Header -->
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-user">
+                    <div class="admin-user-info">
+                        <div class="name" id="admin-name">Admin User</div>
+                        <div class="role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="admin-section active">
+                <div class="section-title">📊 Dashboard Overview</div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🚌</div>
+                        <div class="card-title">Total Routes</div>
+                        <div class="card-value" id="total-routes">0</div>
+                    </div>
+
+                    <div class="dashboard-card orange">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">Total Bookings</div>
+                        <div class="card-value" id="total-bookings">0</div>
+                    </div>
+
+                    <div class="dashboard-card green">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Total Revenue</div>
+                        <div class="card-value" id="total-revenue">Tk. 0</div>
+                    </div>
+
+                    <div class="dashboard-card blue">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">Total Users</div>
+                        <div class="card-value" id="total-users">0</div>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 12px; margin-top: 20px;">
+                    <h3 style="margin-bottom: 15px;">📈 Recent Bookings</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User</th>
+                                <th>Route</th>
+                                <th>Seats</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-bookings">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #999;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- User Requests Section -->
+            <div id="requests" class="admin-section">
+                <div class="section-title">📞 User Special Requests</div>
+
+                <div class="requests-header">
+                    <div>
+                        <h3 style="margin: 0; color: #2d3748; font-size: 18px;">Manage User Requests</h3>
+                        <p style="margin: 4px 0 0 0; color: #a0aec0; font-size: 14px;">Respond to special seating and service requests from customers</p>
+                    </div>
+                    <div class="requests-count" id="requests-count">0 Pending</div>
+                </div>
+
+                <div id="requests-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(700px, 1fr)); gap: 20px; width: 100%;">
+                    <p style="text-align: center; color: #a0aec0; padding: 60px 20px; grid-column: 1/-1;">Loading requests...</p>
+                </div>
+            </div>
+
+            <!-- Buses Section -->
+            <div id="buses" class="admin-section">
+                <div class="section-title"> Manage Buses & Routes</div>
+
+                <!-- Add New Route Form -->
+                <div style="background: #8c6c89; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 15px;"> Add New Route</h3>
+                    <form onsubmit="addRoute(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>From City</label>
+                                <input type="text" id="route-from" placeholder="e.g., Dhaka" required>
+                            </div>
+                            <div class="form-group">
+                                <label>To City</label>
+                                <input type="text" id="route-to" placeholder="e.g., Chittagong" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Departure Time</label>
+                                <input type="time" id="route-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Price (Tk.)</label>
+                                <input type="number" id="route-price" placeholder="e.g., 500" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Bus Name</label>
+                                <input type="text" id="route-bus" placeholder="e.g., EasyGo Express" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Total Seats</label>
+                                <input type="number" id="route-seats" placeholder="e.g., 36" value="36" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary"> Add Route</button>
+                    </form>
+                </div>
+
+                <!-- Routes List -->
+                <h3 style="margin-bottom: 15px;"> All Routes</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Time</th>
+                            <th>Bus Name</th>
+                            <th>Price</th>
+                            <th>Seats</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="routes-list">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #999;">Loading routes...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bookings Section -->
+            <div id="bookings" class="admin-section">
+                <div class="section-title">📋 All Bookings</div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>User Email</th>
+                            <th>Route</th>
+                            <th>Seats</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-list">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #999;">Loading bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Users Section -->
+            <div id="users" class="admin-section">
+                <div class="section-title">👥 Registered Users</div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Bookings</th>
+                            <th>Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999;">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="main-api.js"></script>
+    <script>
+        const ADMIN_API = 'http://localhost:5000/api/admin';
+
+        // Check admin authentication
+        function checkAdminAuth() {
+            const adminToken = localStorage.getItem('admin_token');
+            const adminUser = localStorage.getItem('admin_user');
+
+            if (!adminToken || !adminUser) {
+                window.location.href = 'login-choice.html';
+                return false;
+            }
+
+            const user = JSON.parse(adminUser);
+            document.getElementById('admin-name').textContent = user.name || 'Admin';
+            
+            return true;
+        }
+
+        // Show/Hide Sections
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for section
+            if (sectionId === 'dashboard') {
+                loadDashboard();
+            } else if (sectionId === 'requests') {
+                loadUserRequests();
+            } else if (sectionId === 'buses') {
+                loadRoutes();
+            } else if (sectionId === 'bookings') {
+                loadAllBookings();
+            } else if (sectionId === 'users') {
+                loadAllUsers();
+            }
+        }
+
+        // Load Dashboard Data
+        async function loadDashboard() {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`${ADMIN_API}/dashboard`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('total-routes').textContent = data.stats.totalRoutes;
+                    document.getElementById('total-bookings').textContent = data.stats.totalBookings;
+                    document.getElementById('total-revenue').textContent = `Tk. ${data.stats.totalRevenue}`;
+                    document.getElementById('total-users').textContent = data.stats.totalUsers;
+
+                    // Load recent bookings
+                    loadRecentBookings();
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Load Recent Bookings
+        async function loadRecentBookings() {
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`${ADMIN_API}/bookings/recent`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('recent-bookings');
+                tbody.innerHTML = '';
+
+                if (data.bookings && data.bookings.length > 0) {
+                    data.bookings.forEach(booking => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${booking.booking_id}</td>
+                                <td>${booking.user_email}</td>
+                                <td>${booking.from_city} → ${booking.to_city}</td>
+                                <td>${booking.seats}</td>
+                                <td>Tk. ${booking.total_price}</td>
+                                <td>${new Date(booking.booking_date).toLocaleDateString()}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No bookings found</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Load All Routes
+        async function loadRoutes() {
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`${ADMIN_API}/routes`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('routes-list');
+                tbody.innerHTML = '';
+
+                if (data.routes && data.routes.length > 0) {
+                    data.routes.forEach(route => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${route.from_city}</td>
+                                <td>${route.to_city}</td>
+                                <td>${route.departure_time}</td>
+                                <td>${route.bus_name}</td>
+                                <td>Tk. ${route.price}</td>
+                                <td>${route.available_seats}/${route.total_seats}</td>
+                                <td>
+                                    <button class="btn-danger" onclick="deleteRoute(${route.id})">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading routes:', error);
+            }
+        }
+
+        // Add Route
+        async function addRoute(event) {
+            event.preventDefault();
+            const token = localStorage.getItem('admin_token');
+
+            const routeData = {
+                from_city: document.getElementById('route-from').value,
+                to_city: document.getElementById('route-to').value,
+                departure_time: document.getElementById('route-time').value,
+                price: parseFloat(document.getElementById('route-price').value),
+                bus_name: document.getElementById('route-bus').value,
+                total_seats: parseInt(document.getElementById('route-seats').value)
+            };
+
+            try {
+                const response = await fetch(`${ADMIN_API}/routes/add`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(routeData)
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Route added successfully!');
+                    event.target.reset();
+                    loadRoutes();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error adding route: ' + error.message);
+            }
+        }
+
+        // Delete Route
+        async function deleteRoute(routeId) {
+            if (!confirm('Are you sure you want to delete this route?')) return;
+
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`${ADMIN_API}/routes/delete/${routeId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Route deleted successfully!');
+                    loadRoutes();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error deleting route: ' + error.message);
+            }
+        }
+
+        // Load All Bookings
+        async function loadAllBookings() {
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`${ADMIN_API}/bookings`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('bookings-list');
+                tbody.innerHTML = '';
+
+                if (data.bookings && data.bookings.length > 0) {
+                    data.bookings.forEach(booking => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${booking.booking_id}</td>
+                                <td>${booking.user_email}</td>
+                                <td>${booking.from_city} → ${booking.to_city}</td>
+                                <td>${booking.seats}</td>
+                                <td>Tk. ${booking.total_price}</td>
+                                <td><span style="color: #4caf50;">✓ ${booking.status}</span></td>
+                                <td>${new Date(booking.booking_date).toLocaleDateString()}</td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Load All Users
+        async function loadAllUsers() {
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`${ADMIN_API}/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('users-list');
+                tbody.innerHTML = '';
+
+                if (data.users && data.users.length > 0) {
+                    data.users.forEach(user => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.bookingCount || 0}</td>
+                                <td>${new Date(user.created_at).toLocaleDateString()}</td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
+        }
+
+        // Load all user requests
+        async function loadUserRequests() {
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/requests', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const container = document.getElementById('requests-container');
+                    const countBadge = document.getElementById('requests-count');
+                    
+                    if (!data.requests || data.requests.length === 0) {
+                        container.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: #a0aec0;"><p style="font-size: 16px; margin: 0;">✓ All caught up! No pending requests.</p></div>';
+                        countBadge.textContent = '0 Pending';
+                        return;
+                    }
+
+                    // Count pending requests
+                    const pendingCount = data.requests.filter(r => r.status === 'pending').length;
+                    countBadge.textContent = `${pendingCount} Pending`;
+
+                    container.innerHTML = '';
+                    data.requests.forEach(request => {
+                        const card = document.createElement('div');
+                        card.className = `request-card ${request.status === 'resolved' ? 'resolved' : ''}`;
+                        
+                        const createdDate = new Date(request.created_at).toLocaleDateString();
+                        const statusBadge = request.status === 'pending' ? 'pending' : 'resolved';
+                        
+                        card.innerHTML = `
+                            <div class="request-header">
+                                <div class="request-user">
+                                    <div class="request-user-name">${request.user_name}</div>
+                                    <div class="request-user-email">📧 ${request.user_email}</div>
+                                </div>
+                                <span class="request-badge ${statusBadge}">${request.status}</span>
+                            </div>
+                            
+                            <div class="request-message">
+                                <strong>Request:</strong><br>
+                                ${request.request}
+                            </div>
+                            
+                            ${request.response ? `
+                                <div class="request-message" style="background: #e8f5e9; border-left: 4px solid #4caf50;">
+                                    <strong>✓ Admin Response:</strong><br>
+                                    ${request.response}
+                                </div>
+                            ` : ''}
+                            
+                            ${request.status === 'pending' ? `
+                                <div class="request-answer-section">
+                                    <div class="request-answer-label">📝 Your Response</div>
+                                    <textarea class="request-answer-input" id="response-${request.id}" placeholder="Type your response and solution here..."></textarea>
+                                    <div class="request-footer">
+                                        <button class="btn-resolve" onclick="resolveRequest(${request.id}, ${request.user_id})">
+                                            ✓ Send Response & Resolve
+                                        </button>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="request-meta">
+                                <span>📅 Submitted: ${createdDate}</span>
+                                <span>User ID: ${request.user_id}</span>
+                                ${request.route_id ? `<span>Route ID: ${request.route_id}</span>` : ''}
+                            </div>
+                        `;
+                        
+                        container.appendChild(card);
+                    });
+                } else {
+                    document.getElementById('requests-container').innerHTML = '<p style="color: red;">Error loading requests</p>';
+                }
+            } catch (error) {
+                console.error('Error loading requests:', error);
+                document.getElementById('requests-container').innerHTML = '<p style="color: red;">Error loading requests: ' + error.message + '</p>';
+            }
+        }
+
+        // Resolve user request
+        async function resolveRequest(requestId, userId) {
+            const response = document.getElementById(`response-${requestId}`).value.trim();
+            
+            if (!response) {
+                alert('Please enter a response');
+                return;
+            }
+            
+            try {
+                const res = await fetch(`http://localhost:5000/api/admin/request/${requestId}/status`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        status: 'resolved',
+                        response: response
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('Request resolved successfully!');
+                    loadUserRequests();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error resolving request:', error);
+                alert('Error resolving request: ' + error.message);
+            }
+        }
+
+        // Logout
+        function adminLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('admin_token');
+                localStorage.removeItem('admin_user');
+                window.location.href = 'login-choice.html';
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            if (checkAdminAuth()) {
+                loadDashboard();
+            }
+        });
+    </script>
+</body>
+
+</html>

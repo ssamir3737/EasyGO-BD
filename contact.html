@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | EasyGo BD</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+         <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home" > Home</a></li>
+            <li><a href="search.html"><img src="./image/book.png" alt="Book Ticket">Book Ticket</a></li>
+            <li><a href="login.html"><img src="./image/login.png" alt="login">Login</a></li>
+            
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+
+        <form class="contact-form" onsubmit="submitContact(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button class="btn-grad" type="submit">Send Message</button>
+        </form>
+    </section>
+    
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page | EasyGo_Bd</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><img src="./image/home12.png" alt="Home"> Home</a></li>
+            <li><a href="login-choice.html"><img src="./image/login.png" alt="Login"> Login</a></li>
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="login-intro">
+        <h1>Welcome to EasyGo Bd</h1>
+        <p>
+            EasyGo Bd is a smart online bus ticket booking system.
+        </p>
+        <div class="bus-container">
+            <img src="image/images.png" alt="Bus" class="bus">
+        </div>
+    </section>
+
+    <section class="login-section">
+        <h2>Choose Your Login Type</h2>
+
+        <div class="login-choice-buttons">
+            <a href="login-choice.html" class="choice-btn user-choice">
+                <div class="choice-icon">👤</div>
+                <div class="choice-text">
+                    <h3>Login as User</h3>
+                    <p>Book your bus tickets and manage bookings</p>
+                </div>
+            </a>
+
+            <a href="login-choice.html" class="choice-btn admin-choice">
+                <div class="choice-icon">⚙️</div>
+                <div class="choice-text">
+                    <h3>Login as Admin</h3>
+                    <p>Manage buses, routes, and bookings</p>
+                </div>
+            </a>
+        </div>
+
+        <p class="note">Don’t have an account? <a href="register.html"><img class="register"
+                    src="./image/registration.png" alt="">Register</a></p>
+
+    </section>
+    <section class="feature-section">
+        <h2 class="feature-title">Why Choose EasyGo Bd?</h2>
+
+        <div class="feature-cards">
+
+            <div class="feature-card">
+                <img src="image/booking.png" alt="Easy Booking">
+                <h3>Easy Booking</h3>
+                <p>Book your bus ticket in just a few clicks.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="./image/seat.jpg" alt="Seat Selection">
+                <h3>Seat Selection</h3>
+                <p>Choose your preferred seat before booking.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="image/payment.png" alt="Secure Payment">
+                <h3>Secure Payment</h3>
+                <p>Safe and secure payment system.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="image/routes.jpg" alt="Multiple Routes">
+                <h3>Multiple Routes</h3>
+                <p>Available routes across many cities.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="image/history.png" alt="Booking History">
+                <h3>Booking History</h3>
+                <p>View all your past bookings anytime.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="image/ticket.png" alt="E-Ticket">
+                <h3>E-Ticket</h3>
+                <p>Get instant booking confirmation.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="main-api.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

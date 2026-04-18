@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest mode</title>
+    <link rel="shortcut icon" href="image/EasyGo_Bd.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+         <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="history.html"><img src="./image/history.png" alt="history">History</a></li>
+             
+            <li><a href="contact.html"><img src="./image/contact.png" alt="Contact">Contact us</a></li>
+        </ul>
+    </nav>
+    <section class="search-box">
+        <h2>Book Your Ticket Easily</h2>
+
+        <input type="text" id="from" list="cityList" placeholder="From">
+        <input type="text" id="to" list="cityList" placeholder="To">
+
+        <datalist id="cityList">
+            <option value="Dhaka">
+            <option value="Barishal">
+            <option value="Chittagong">
+            <option value="Sylhet">
+            <option value="Rangpur">
+            <option value="Bogura">
+            <option value="Kuakata">
+            <option value="Dinajpur">
+            <option value="Gajipur">
+            <option value="Cumilla">
+        </datalist>
+
+        <input type="date" id="date">
+
+
+        <button class="btn-grad" onclick="searchRoute()">Search</button>
+    </section>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
